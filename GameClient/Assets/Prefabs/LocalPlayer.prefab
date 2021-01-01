@@ -235,8 +235,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8819256922348106597}
   - component: {fileID: 8283048436765457631}
-  - component: {fileID: 2779226888781190586}
   - component: {fileID: 1267043425188888026}
+  - component: {fileID: 6085136618071847308}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -279,18 +279,6 @@ MonoBehaviour:
   maxHealth: 100
   itemCount: 0
   model: {fileID: 829117775900897876}
---- !u!114 &2779226888781190586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7677484484946083636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b11d83b4bda10c4ab640aea930c3962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1267043425188888026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,3 +292,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camTransform: {fileID: 1243984683900922996}
+--- !u!54 &6085136618071847308
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7677484484946083636}
+  serializedVersion: 2
+  m_Mass: 1.5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

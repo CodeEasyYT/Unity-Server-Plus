@@ -24,15 +24,18 @@ public class ServerHandle
         {
             _inputs[i] = _packet.ReadBool();
         }
+
+        int clientMovementID = _packet.ReadInt();
+
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        Server.clients[_fromClient].player.SetInput(_inputs, _rotation, clientMovementID);
     }
 
     public static void PlayerShoot(int _fromClient, Packet _packet)
     {
         Vector3 _shootDirection = _packet.ReadVector3();
-
+ 
         Server.clients[_fromClient].player.Shoot(_shootDirection);
     }
 

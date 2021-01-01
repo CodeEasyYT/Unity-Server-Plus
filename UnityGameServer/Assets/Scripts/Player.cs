@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     public int maxItemAmount = 3;
     public float throwForce = 600f;
 
+    //client movement ID
+    public int movementID;
+
     //transform location of shoot origin
     public Transform shootOrigin;
 
@@ -64,14 +67,14 @@ public class Player : MonoBehaviour
     {
         if (jumping && IsGrounded())
         {
-            Debug.Log("jumping");
             rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
         }
     }
 
     //sets player inputs and rotation
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    public void SetInput(bool[] _inputs, Quaternion _rotation, int _movementID)
     {
+        movementID = _movementID;
         inputs = _inputs;
         transform.rotation = _rotation;
     }
@@ -144,6 +147,7 @@ public class Player : MonoBehaviour
 
     public void Shoot(Vector3 _viewDirection)
     {
+        Debug.Log("shoot");
         if (health <= 0f)
         {
             return;
@@ -151,8 +155,9 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
         {
-            if (_hit.collider.CompareTag("Player"))
+            if (_hit.collider.transform.parent.CompareTag("Player"))
             {
+                Debug.Log("htting player");
                 _hit.collider.GetComponent<Player>().TakeDamage(50f);
             }
             else if (_hit.collider.CompareTag("Enemy"))
@@ -211,7 +216,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         health = maxHealth;
-        rb.isKinematic = true;
         rb.detectCollisions = true;
         ServerSend.PlayerRespawned(this);
     }

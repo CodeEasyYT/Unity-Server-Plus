@@ -31,6 +31,7 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerPosition(Packet _packet)
     {
         int _id = _packet.ReadInt();
+        int pastMovementID = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
 
         //variables for storing the server's time when sending packet
@@ -41,9 +42,19 @@ public class ClientHandle : MonoBehaviour
         PingServer.serverMilliseconds = int.Parse(serverMilliseconds);
         PingServer.CalculatePing();
 
+        if (_id == Client.instance.myId)
+        {
+            if (SharedVariables.movementStore.TryGetValue(pastMovementID, out Vector3 clientPastPosition))
+            {
+                SharedVariables.doCheck = true;
+                SharedVariables.clientPos = clientPastPosition;
+                SharedVariables.serverPos = _position;
+                return;
+            }
+        }
+
         if (GameManager.players.TryGetValue(_id, out PlayerManager _player))
         {
-            Debug.Log(_position);
             _player.transform.position = _position;
         }
     }

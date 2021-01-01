@@ -12,6 +12,8 @@ public class PingServer : MonoBehaviour
 
     public static void CalculatePing()
     {
+        //dear god i need to fix this at some point
+
         int clientSeconds = DateTime.Now.Second;
         int clientMilliseconds = DateTime.Now.Millisecond;
 
@@ -19,18 +21,18 @@ public class PingServer : MonoBehaviour
         {
             if (clientSeconds > serverSeconds)
             {
-                Debug.Log("ping is way to fucking high");
+                //Debug.Log($"ping: {clientSeconds - serverSeconds}");
             }
             else
             {
-                Debug.Log($"ping: {clientSeconds - serverSeconds}");
+                //Debug.Log("ping: 0");
             }
         }
         else
         {
-            Debug.Log("test");
+           // Debug.Log("test");
             
-            Debug.Log($"ping: {clientMilliseconds - serverMilliseconds} tick: {SharedVariables.clientTick}");
+            //Debug.Log($"ping: {clientMilliseconds - serverMilliseconds}");
         }
     }
 }

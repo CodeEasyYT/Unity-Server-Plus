@@ -110,6 +110,7 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
             _packet.Write(_player.id);
+            _packet.Write(_player.movementID);
             _packet.Write(_player.transform.position);
 
             _packet.Write(System.DateTime.Now.Second.ToString());
