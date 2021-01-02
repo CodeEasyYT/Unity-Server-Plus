@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     public Transform camTransform;
     private Rigidbody rb;
 
+    //colliders to disable on lerp
+    [Tooltip("Character Controller Also Works")]
+    public Collider[] colliders;
+
     //movement ID
     private int movementID;
 
@@ -172,7 +176,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("resetting position");
 
-                rb.MovePosition(SharedVariables.serverPos);
+                StartCoroutine(InsterpolateToPosition(SharedVariables.serverPos, 0.2f));
 
                 SharedVariables.doCheck = false;
             }
@@ -181,5 +185,30 @@ public class PlayerController : MonoBehaviour
                 return;
             }
         }
+    }
+    
+    public IEnumerator InsterpolateToPosition(Vector3 _targetPosition, float _time)
+    {
+        foreach (Collider _collider in colliders)
+        {
+            _collider.enabled = false;
+        }
+
+        rb.isKinematic = true;
+
+        float _timePercentage = 0;
+        while(_timePercentage < 1)
+        {
+            _timePercentage += Time.deltaTime / _time;
+            transform.position = Vector3.Lerp(transform.position, _targetPosition, _timePercentage);
+            yield return null;
+        }
+
+        foreach (Collider _collider in colliders)
+        {
+            _collider.enabled = true;
+        }
+
+        rb.isKinematic = false;
     }
 }
